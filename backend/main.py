@@ -30,7 +30,7 @@ app.add_middleware(
         "http://localhost:3000",
         "https://github.com/ShuangyiHu",
         "https://meowow.me",
-        "https://shuangyi-hu.vercel.app/",
+        "https://shuangyi-hu.vercel.app",
         "https://shuangyi-hu.up.railway.app",
         "https://personal-website-git-master-amandashuangyihu-9253s-projects.vercel.app/",
         "https://personal-website-ihkgkoecm-amandashuangyihu-9253s-projects.vercel.app/"
