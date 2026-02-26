@@ -32,6 +32,8 @@ app.add_middleware(
         "https://meowow.me",
         "https://shuangyi-hu.vercel.app/",
         "https://shuangyi-hu.up.railway.app",
+        "https://personal-website-git-master-amandashuangyihu-9253s-projects.vercel.app/",
+        "https://personal-website-ihkgkoecm-amandashuangyihu-9253s-projects.vercel.app/"
     ],
     allow_credentials=True,
     allow_methods=["*"],
