@@ -20,6 +20,7 @@ from pydantic import BaseModel
 from gradio_client import Client
 import json, os
 
+
 app = FastAPI(title="Shuangyi Portfolio API", version="1.0.0")
 
 # ── CORS ──────────────────────────────────────────────────────
@@ -27,8 +28,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://shuangyihu.github.io",   # your GitHub Pages URL
-        "https://your-domain.com",         # your custom domain
+        "https://github.com/ShuangyiHu",
+        "https://shuangyi-hu.up.railway.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],

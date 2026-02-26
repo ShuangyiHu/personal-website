@@ -3,39 +3,22 @@
    Uses official @gradio/client (via esm.sh CDN) — works on
    Gradio 3 / 4 / 5 automatically, no endpoint guessing needed.
    ═══════════════════════════════════════════════════════════════ */
+const API_BASE = "https://shuangyi-hu.up.railway.app";
 
 const Widget = (() => {
-  const HF_SPACE = "shuangyihu/career_conversation";
-
   let isOpen = false;
   let isBusy = false;
-  let clientPromise = null; // single shared promise, lazily initialized
-
-  // ── Connect once, reuse forever ───────────────────────────
-  function getClient() {
-    if (!clientPromise) {
-      clientPromise = import("https://esm.sh/@gradio/client")
-        .then(({ Client }) => Client.connect(HF_SPACE))
-        .catch((err) => {
-          clientPromise = null; // reset so next send retries
-          throw err;
-        });
-    }
-    return clientPromise;
-  }
 
   // ── UI helpers ─────────────────────────────────────────────
   function toggle() {
     isOpen = !isOpen;
     document.getElementById("twinPanel").classList.toggle("open", isOpen);
     document.getElementById("twinBtn").classList.toggle("open", isOpen);
-    // Hide the label badge when panel is open
     document
       .getElementById("twinAnchor")
       .classList.toggle("panel-open", isOpen);
     if (isOpen)
       setTimeout(() => document.getElementById("chatInp")?.focus(), 350);
-    if (isOpen && !clientPromise) getClient().catch(() => {});
   }
 
   function setTab(tab, btn) {
@@ -99,25 +82,19 @@ const Widget = (() => {
       .replace(/"/g, "&quot;");
   }
 
-  // ── Call HF via official gradio client ────────────────────
-  async function callGradio(userMessage) {
-    const client = await getClient();
-
-    // predict() works across all Gradio versions.
-    // api_name="/chat" matches gr.ChatInterface which always
-    // registers the function under the name "chat".
-    const result = await client.predict("/chat", {
-      message: userMessage,
+  // ── Call HF via backend
+  async function callBackend(userMessage) {
+    const res = await fetch(`${API_BASE}/api/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: userMessage,
+        history: [],
+      }),
     });
 
-    // result.data is an array; first element is the reply string
-    const reply = result?.data?.[0];
-    if (typeof reply !== "string" && reply == null) {
-      throw new Error(
-        "Empty or unexpected response: " + JSON.stringify(result),
-      );
-    }
-    return typeof reply === "string" ? reply : JSON.stringify(reply);
+    const data = await res.json();
+    return data.reply;
   }
 
   // ── Core send flow ─────────────────────────────────────────
@@ -130,7 +107,7 @@ const Widget = (() => {
     showTyping();
 
     try {
-      const reply = await callGradio(userText);
+      const reply = await callBackend(userText);
       removeTyping();
       addMsg("b", escapeHtml(reply).replace(/\n/g, "<br>"));
     } catch (err) {
