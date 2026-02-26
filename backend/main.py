@@ -29,6 +29,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "https://github.com/ShuangyiHu",
+        "https://meowow.me",
         "https://shuangyi-hu.up.railway.app",
     ],
     allow_credentials=True,
