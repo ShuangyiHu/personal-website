@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shuangyi Hu — Software Engineer</title>
+    <meta
+      name="description"
+      content="Portfolio of Shuangyi Hu — M.S. Computer Software Engineering at Northeastern University. Building distributed systems & AI-powered tools."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👩🏻‍💻</text></svg>"
+    />
+
+    <!-- ── CSS Modules ── -->
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/nav.css" />
+    <link rel="stylesheet" href="css/hero.css" />
+    <link rel="stylesheet" href="css/profile.css" />
+    <link rel="stylesheet" href="css/projects.css" />
+    <link rel="stylesheet" href="css/about-contact.css" />
+  </head>
+  <body>
+    <!-- ══════════════════════════════════════
+     NAV
+══════════════════════════════════════ -->
+    <nav>
+      <div class="nav-logo">SH<span>.</span></div>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- ══════════════════════════════════════
+     HERO — Pipeline Animation
+══════════════════════════════════════ -->
+    <section class="hero" id="home">
+      <div id="pipeline-stage">
+        <svg id="pipeline-svg"></svg>
+
+        <!-- Pipeline nodes -->
+        <div class="p-node p-cyan" id="n-query">
+          <div class="p-box">
+            <div class="p-label">01 · INPUT</div>
+            <div class="p-title">QUERY RECEIVED</div>
+            <div class="p-sub">AI &amp; Junior Engineers · 2025–2030</div>
+          </div>
+        </div>
+
+        <div class="p-node p-cyan" id="n-planner">
+          <div class="p-box">
+            <div class="p-label">02 · AGENT</div>
+            <div class="p-title">PLANNER AGENT</div>
+            <div class="p-sub">gpt-4o-mini · 5 queries planned</div>
+          </div>
+        </div>
+
+        <div class="p-node p-search" id="n-s0">
+          <div class="p-box"><div class="p-title">WEB SEARCH ①</div></div>
+        </div>
+        <div class="p-node p-search" id="n-s1">
+          <div class="p-box"><div class="p-title">WEB SEARCH ②</div></div>
+        </div>
+        <div class="p-node p-search" id="n-s2">
+          <div class="p-box"><div class="p-title">WEB SEARCH ③</div></div>
+        </div>
+        <div class="p-node p-search" id="n-s3">
+          <div class="p-box"><div class="p-title">WEB SEARCH ④</div></div>
+        </div>
+        <div class="p-node p-search" id="n-s4">
+          <div class="p-box"><div class="p-title">WEB SEARCH ⑤</div></div>
+        </div>
+
+        <div class="p-node p-cyan" id="n-writer">
+          <div class="p-box">
+            <div class="p-label">04 · SYNTHESIS</div>
+            <div class="p-title">DRAFT WRITER</div>
+            <div class="p-sub">1000+ words · 9 sections</div>
+          </div>
+        </div>
+
+        <div class="p-node p-violet" id="n-claude">
+          <div class="p-box">
+            <div class="p-label">05a · EVALUATOR</div>
+            <div class="p-title">CLAUDE SONNET</div>
+            <div class="p-sub" id="claude-score-txt">score: —</div>
+            <div class="p-disagree" id="disagree-badge">
+              <div class="p-disagree-dot"></div>
+              GAP ≥ 4 · CONSERVATIVE MIN
+            </div>
+          </div>
+        </div>
+
+        <div class="p-node p-green" id="n-gemini">
+          <div class="p-box">
+            <div class="p-label">05b · EVALUATOR</div>
+            <div class="p-title">GEMINI FLASH</div>
+            <div class="p-sub" id="gemini-score-txt">score: —</div>
+          </div>
+        </div>
+
+        <div class="p-node p-amber" id="n-search2">
+          <div class="p-box">
+            <div class="p-label">06 · TARGETED</div>
+            <div class="p-title">EXTRA SEARCH</div>
+            <div class="p-sub">fill weak sections</div>
+          </div>
+        </div>
+
+        <div class="p-node p-cyan" id="n-rewriter">
+          <div class="p-box">
+            <div class="p-label">07 · REWRITE</div>
+            <div class="p-title">SECTION REWRITER</div>
+            <div class="p-sub">targeted rewrites</div>
+          </div>
+        </div>
+
+        <div class="p-node p-amber" id="n-guard">
+          <div class="p-box">
+            <div class="p-label">08 · GUARD</div>
+            <div class="p-title">BEST-VERSION GUARD</div>
+            <div class="p-sub">rollback if score regresses</div>
+          </div>
+        </div>
+
+        <div class="p-node p-green" id="n-conv">
+          <div class="p-box">
+            <div class="p-label">09 · OUTPUT</div>
+            <div class="p-title">CONVERGENCE</div>
+            <div class="p-score-wrap">
+              <div class="p-score-track">
+                <div class="p-score-fill" id="score-fill"></div>
+              </div>
+              <div class="p-score-lbl">
+                <span>quality score</span>
+                <span class="p-score-val" id="score-val">0/10</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-ring" id="conv-ring"></div>
+        </div>
+
+        <!-- Status bar -->
+        <div id="p-status">
+          <span id="p-status-msg">INITIALIZING PIPELINE...</span>
+          <div class="p-dots">
+            <span id="dot-0"></span><span id="dot-1"></span>
+            <span id="dot-2"></span><span id="dot-3"></span
+            ><span id="dot-4"></span>
+          </div>
+        </div>
+        <button id="p-replay" onclick="Pipeline.run()">↺ REPLAY</button>
+      </div>
+
+      <!-- Text overlay -->
+      <div class="hero-overlay">
+        <div class="hero-pill">
+          <span class="hero-pill-dot"></span>
+          Deep Research Agent Pipeline
+        </div>
+        <h1 class="hero-name">
+          Shuangyi<br />
+          <span class="hollow"><span class="accent">Hu</span></span>
+        </h1>
+        <p class="hero-sub">
+          Building AI systems that think, search, evaluate, and refine — end to
+          end.
+        </p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn-primary">View Projects</a>
+          <a href="#contact" class="btn-ghost">Get in touch</a>
+        </div>
+      </div>
+
+      <div class="hero-scroll">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+     TICKER
+══════════════════════════════════════ -->
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <span class="ticker-item"><span class="tk">✦</span>Java</span>
+        <span class="ticker-item"><span class="tk">✦</span>Spring Boot</span>
+        <span class="ticker-item"
+          ><span class="tk">✦</span>Distributed Systems</span
+        >
+        <span class="ticker-item"><span class="tk">✦</span>React</span>
+        <span class="ticker-item"><span class="tk">✦</span>Node.js</span>
+        <span class="ticker-item"><span class="tk">✦</span>Redis</span>
+        <span class="ticker-item"><span class="tk">✦</span>RabbitMQ</span>
+        <span class="ticker-item"><span class="tk">✦</span>Docker · AWS</span>
+        <span class="ticker-item"><span class="tk">✦</span>Gemini AI</span>
+        <span class="ticker-item"><span class="tk">✦</span>LLM Pipelines</span>
+        <span class="ticker-item"><span class="tk">✦</span>Microservices</span>
+        <span class="ticker-item"><span class="tk">✦</span>Full-Stack Dev</span>
+        <!-- duplicate for seamless loop -->
+        <span class="ticker-item"><span class="tk">✦</span>Java</span>
+        <span class="ticker-item"><span class="tk">✦</span>Spring Boot</span>
+        <span class="ticker-item"
+          ><span class="tk">✦</span>Distributed Systems</span
+        >
+        <span class="ticker-item"><span class="tk">✦</span>React</span>
+        <span class="ticker-item"><span class="tk">✦</span>Node.js</span>
+        <span class="ticker-item"><span class="tk">✦</span>Redis</span>
+        <span class="ticker-item"><span class="tk">✦</span>RabbitMQ</span>
+        <span class="ticker-item"><span class="tk">✦</span>Docker · AWS</span>
+        <span class="ticker-item"><span class="tk">✦</span>Gemini AI</span>
+        <span class="ticker-item"><span class="tk">✦</span>LLM Pipelines</span>
+        <span class="ticker-item"><span class="tk">✦</span>Microservices</span>
+        <span class="ticker-item"><span class="tk">✦</span>Full-Stack Dev</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+     PROFILE
+══════════════════════════════════════ -->
+    <section class="profile-section" id="profile">
+      <!-- Photo Column -->
+      <div class="profile-photo-col sr">
+        <div class="photo-card">
+          <img class="photo-img" src="images/profile.jpg" alt="Shuangyi Hu" />
+
+          <div class="photo-overlay"></div>
+
+          <div class="photo-name-block">
+            <div class="photo-name">Shuangyi Hu</div>
+            <div class="photo-role">
+              M.S. Computer Software Engineering · Northeastern
+            </div>
+            <div class="photo-badges">
+              <span class="photo-badge green">● Open to work</span>
+              <span class="photo-badge">GPA 4.0</span>
+              <span class="photo-badge">Seattle, WA</span>
+            </div>
+          </div>
+        </div>
+        <!-- /photo-card -->
+
+        <!-- Digital Twin Widget — outside photo-card so chat panel isn't clipped -->
+      </div>
+      <!-- /profile-photo-col -->
+
+      <!-- Bio Column -->
+      <div class="profile-bio-col sr">
+        <p class="profile-eyebrow">About me</p>
+        <p class="profile-bio-text">
+          I build systems that <em>scale without breaking</em> and interfaces
+          people <strong>actually want to use.</strong> Passionate about the
+          intersection of backend rigor, distributed architecture, and
+          AI-augmented workflows.
+        </p>
+
+        <div class="profile-info-list">
+          <div class="profile-info-row">
+            <div class="profile-info-icon" style="background: var(--sage)">
+              🎓
+            </div>
+            <div>
+              <div class="profile-info-label">Education</div>
+              <div class="profile-info-value">
+                Northeastern University · GPA 4.0
+              </div>
+            </div>
+          </div>
+          <div class="profile-info-row">
+            <div class="profile-info-icon" style="background: var(--sky)">
+              💼
+            </div>
+            <div>
+              <div class="profile-info-label">Status</div>
+              <div class="profile-info-value">
+                Open to work · SWE / Full-Stack / AI
+              </div>
+            </div>
+          </div>
+          <div class="profile-info-row">
+            <div class="profile-info-icon" style="background: var(--sand)">
+              📍
+            </div>
+            <div>
+              <div class="profile-info-label">Location</div>
+              <div class="profile-info-value">
+                Seattle, WA · Open to Remote & Relocation
+              </div>
+            </div>
+          </div>
+          <div class="profile-info-row">
+            <div class="profile-info-icon" style="background: var(--terra-l)">
+              🌐
+            </div>
+            <div>
+              <div class="profile-info-label">Languages</div>
+              <div class="profile-info-value">
+                Mandarin (Native) · English (Professional)
+              </div>
+            </div>
+          </div>
+          <div class="profile-info-row">
+            <div class="profile-info-icon" style="background: var(--mint)">
+              ⚡
+            </div>
+            <div>
+              <div class="profile-info-label">Core Stack</div>
+              <div class="profile-info-value">
+                Java · Python · Spring Boot · React · AWS
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-links-row">
+          <a
+            class="profile-link primary"
+            href="mailto:amandashuangyihu@gmail.com"
+            >📧 Email Me</a
+          >
+          <a
+            class="profile-link"
+            href="https://www.linkedin.com/in/shuangyi-hu/"
+            target="_blank"
+            >💼 LinkedIn</a
+          >
+          <a class="profile-link" href="images/resume.pdf" download
+            >📄 Resume</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+     PROJECTS
+══════════════════════════════════════ -->
+    <section id="projects">
+      <div class="projects-wrap">
+        <div class="sec-head sr">
+          <span class="sec-num">01</span>
+          <h2 class="sec-title">Selected Projects</h2>
+        </div>
+        <div class="proj-grid">
+          <!-- Card 1: AI Research Agent -->
+          <div class="proj-card sr">
+            <div class="proj-card-arrow">↗</div>
+            <div class="proj-art">
+              <svg
+                viewBox="0 0 300 280"
+                preserveAspectRatio="xMidYMid slice"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="300" height="280" fill="#A8D8FF" />
+                <ellipse
+                  cx="260"
+                  cy="40"
+                  rx="110"
+                  ry="90"
+                  fill="#C8FF6A"
+                  transform="rotate(-15 260 40)"
+                />
+                <ellipse
+                  cx="30"
+                  cy="220"
+                  rx="100"
+                  ry="70"
+                  fill="rgba(255,255,255,0.65)"
+                  transform="rotate(20 30 220)"
+                />
+                <circle cx="55" cy="65" r="38" fill="#FF6EB4" opacity="0.85" />
+                <circle cx="200" cy="190" r="18" fill="white" opacity="0.5" />
+                <circle cx="240" cy="160" r="10" fill="white" opacity="0.35" />
+              </svg>
+              <img
+                class="proj-logo"
+                src="images/proj-1.png"
+                alt="AI Research Agent logo"
+              />
+            </div>
+            <div class="proj-body">
+              <p class="proj-type">AI · Multi-Agent Pipeline</p>
+              <h3 class="proj-name">AI Research Agent</h3>
+              <p class="proj-desc">
+                Multi-agent pipeline with parallel retrieval, dual-model
+                evaluation (Claude + Gemini), and a best-version guard —
+                iteratively refines until quality threshold is reached.
+              </p>
+              <div class="proj-stack">
+                <span class="proj-tag">Python</span>
+                <span class="proj-tag">Claude API</span>
+                <span class="proj-tag">Gemini API</span>
+                <span class="proj-tag">OpenAI SDK</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: WanderMark -->
+          <div class="proj-card sr">
+            <div class="proj-card-arrow">↗</div>
+            <div class="proj-art">
+              <svg
+                viewBox="0 0 300 280"
+                preserveAspectRatio="xMidYMid slice"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="300" height="280" fill="#FFE566" />
+                <circle cx="60" cy="55" r="90" fill="#FF7A5A" opacity="0.88" />
+                <path
+                  d="M0,165 Q75,125 150,155 Q225,185 300,145 L300,280 L0,280 Z"
+                  fill="white"
+                  opacity="0.55"
+                />
+                <path
+                  d="M0,190 Q75,170 150,180 Q225,190 300,170 L300,280 L0,280 Z"
+                  fill="white"
+                  opacity="0.3"
+                />
+                <ellipse
+                  cx="278"
+                  cy="62"
+                  rx="68"
+                  ry="52"
+                  fill="#6EC6FF"
+                  transform="rotate(10 278 62)"
+                  opacity="0.8"
+                />
+              </svg>
+              <img
+                class="proj-logo"
+                src="images/proj-2.png"
+                alt="WanderMark logo"
+              />
+            </div>
+            <div class="proj-body">
+              <p class="proj-type">Full-Stack · MERN</p>
+              <h3 class="proj-name">WanderMark</h3>
+              <p class="proj-desc">
+                Place bookmarking platform with JWT auth & Cloudinary uploads.
+                Reduced API response time by 87% and P95 latency by 30% via
+                async uploads and indexed queries.
+              </p>
+              <div class="proj-stack">
+                <span class="proj-tag">React</span>
+                <span class="proj-tag">Node.js</span>
+                <span class="proj-tag">MongoDB</span>
+                <span class="proj-tag">Cloudinary</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: MailMind -->
+          <div class="proj-card sr">
+            <div class="proj-card-arrow">↗</div>
+            <div class="proj-art">
+              <svg
+                viewBox="0 0 300 280"
+                preserveAspectRatio="xMidYMid slice"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="300" height="280" fill="#C4B5FD" />
+                <ellipse
+                  cx="250"
+                  cy="250"
+                  rx="130"
+                  ry="110"
+                  fill="#AAFF6A"
+                  transform="rotate(-20 250 250)"
+                  opacity="0.9"
+                />
+                <circle cx="70" cy="55" r="75" fill="#FF9F3F" opacity="0.82" />
+                <circle cx="272" cy="32" r="45" fill="#FF6EB4" opacity="0.65" />
+              </svg>
+              <img
+                class="proj-logo"
+                src="images/proj-3.png"
+                alt="MailMind logo"
+              />
+            </div>
+            <div class="proj-body">
+              <p class="proj-type">AI · Chrome Extension · Hackathon</p>
+              <h3 class="proj-name">MailMind</h3>
+              <p class="proj-desc">
+                Led team of 4 to build an AI Chrome extension for intelligent
+                email classification & summarization. −60% redundant API calls,
+                UI responsiveness 1.2s → 400ms.
+              </p>
+              <div class="proj-stack">
+                <span class="proj-tag">React</span>
+                <span class="proj-tag">TypeScript</span>
+                <span class="proj-tag">Gemini AI</span>
+                <span class="proj-tag">Chrome APIs</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: DrivePro -->
+          <div class="proj-card sr">
+            <div class="proj-card-arrow">↗</div>
+            <div class="proj-art">
+              <svg
+                viewBox="0 0 300 280"
+                preserveAspectRatio="xMidYMid slice"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="300" height="280" fill="#6EEFC0" />
+                <ellipse
+                  cx="150"
+                  cy="0"
+                  rx="165"
+                  ry="115"
+                  fill="#FF5F57"
+                  opacity="0.88"
+                />
+                <circle cx="272" cy="228" r="88" fill="#FFE033" opacity="0.9" />
+                <path
+                  d="M0,200 Q150,170 300,200 L300,280 L0,280 Z"
+                  fill="white"
+                  opacity="0.4"
+                />
+                <line
+                  x1="150"
+                  y1="182"
+                  x2="150"
+                  y2="280"
+                  stroke="white"
+                  stroke-width="3"
+                  stroke-dasharray="10,8"
+                  opacity="0.65"
+                />
+              </svg>
+              <img
+                class="proj-logo"
+                src="images/proj-4.png"
+                alt="DrivePro logo"
+              />
+            </div>
+            <div class="proj-body">
+              <p class="proj-type">Distributed Systems · Backend</p>
+              <h3 class="proj-name">DrivePro</h3>
+              <p class="proj-desc">
+                Microservices chauffeur platform with real-time booking, Redis
+                caching, and Seata distributed transaction consistency. 1,000+
+                req/sec, Dockerized on AWS EC2.
+              </p>
+              <div class="proj-stack">
+                <span class="proj-tag">Spring Boot</span>
+                <span class="proj-tag">Redis</span>
+                <span class="proj-tag">RabbitMQ</span>
+                <span class="proj-tag">AWS EC2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+     ABOUT / SKILLS
+══════════════════════════════════════ -->
+    <section class="about-band" id="about">
+      <div class="about-left sr">
+        <div class="sec-head" style="margin-bottom: 0">
+          <span class="sec-num">02</span>
+          <h2 class="sec-title">Skills &<br />Background</h2>
+        </div>
+        <blockquote class="about-quote">
+          "I'm drawn to problems where scale demands creativity — where the
+          architecture is as important as the code."
+        </blockquote>
+        <div class="skills-grid">
+          <span class="skill-chip">Java</span>
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">JavaScript</span>
+          <span class="skill-chip">TypeScript</span>
+          <span class="skill-chip">Spring Boot</span>
+          <span class="skill-chip">React</span>
+          <span class="skill-chip">Node.js</span>
+          <span class="skill-chip">Redis</span>
+          <span class="skill-chip">RabbitMQ</span>
+          <span class="skill-chip">Seata</span>
+          <span class="skill-chip">Docker</span>
+          <span class="skill-chip">AWS</span>
+          <span class="skill-chip">MongoDB</span>
+          <span class="skill-chip">MySQL</span>
+          <span class="skill-chip">Gemini AI</span>
+          <span class="skill-chip">Microservices</span>
+          <span class="skill-chip">LangChain</span>
+        </div>
+      </div>
+
+      <div class="about-right sr">
+        <div>
+          <div class="edu-tag">Education</div>
+          <div class="edu-school">Northeastern University</div>
+          <div class="edu-detail">M.S. Computer Software Engineering</div>
+          <div class="edu-detail dim">Boston, MA · 2023–Present · GPA 4.0</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="edu-tag" style="margin-bottom: 10px">
+            Currently Exploring
+          </div>
+          <div class="interest-list">
+            <div class="interest-item">
+              <span class="interest-dot"></span>LLM integration & AI-augmented
+              pipelines
+            </div>
+            <div class="interest-item">
+              <span class="interest-dot"></span>Cloud-native distributed
+              architecture
+            </div>
+            <div class="interest-item">
+              <span class="interest-dot"></span>Developer experience & tooling
+            </div>
+            <div class="interest-item">
+              <span class="interest-dot"></span>Product-minded engineering
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="edu-tag" style="margin-bottom: 10px">Languages</div>
+          <div class="interest-list">
+            <div class="interest-item">
+              <span class="interest-dot blue"></span>Mandarin Chinese (Native)
+            </div>
+            <div class="interest-item">
+              <span class="interest-dot blue"></span>English (Professional)
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+     CONTACT
+══════════════════════════════════════ -->
+    <section class="contact-section" id="contact">
+      <div class="contact-left sr">
+        <div class="sec-head" style="margin-bottom: 0">
+          <span class="sec-num">03</span>
+          <h2 class="contact-title">Let's Build<br />Something.</h2>
+        </div>
+        <p class="contact-sub">
+          Open to full-time SWE roles and internships in backend, full-stack, or
+          distributed systems. Always happy to chat.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:amandashuangyihu@gmail.com" class="c-link">
+            <span class="c-icon" style="background: var(--terra-l)">📧</span>
+            amandashuangyihu@gmail.com
+          </a>
+          <a
+            href="https://www.linkedin.com/in/shuangyi-hu/"
+            target="_blank"
+            class="c-link"
+          >
+            <span class="c-icon" style="background: var(--sky)">💼</span>
+            linkedin.com/in/shuangyi-hu
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-right sr">
+        <div class="avail-badge">
+          <span class="live-dot" style="background: var(--white)"></span>
+          Available · Summer 2025
+        </div>
+        <div class="avail-title">Ready for new<br />challenges.</div>
+        <p class="avail-desc">
+          Based in Boston · Open to remote & hybrid roles · SWE / Backend /
+          Full-Stack · Willing to relocate
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+    <footer>
+      <span class="foot-copy">© 2025 Shuangyi Hu</span>
+      <span class="foot-made">Designed in Boston ✦</span>
+    </footer>
+
+    <!-- ══════════════════════════════════════
+     FLOATING CHATBOT WIDGET (fixed, page-level)
+══════════════════════════════════════ -->
+    <div class="twin-anchor" id="twinAnchor">
+      <!-- Label badge above the button -->
+      <div class="twin-label">💬 Career Q&A · Powered by AI</div>
+
+      <button class="twin-btn" id="twinBtn" onclick="Widget.toggle()">
+        <img src="images/chatbot.png" alt="My career assistant" />
+        <span class="twin-badge"></span>
+      </button>
+
+      <div class="chat-panel" id="twinPanel">
+        <div class="chat-head">
+          <!-- Use profile image instead of emoji -->
+          <div class="chat-av-img">
+            <img src="images/chatbot.png" alt="Shuangyi" />
+          </div>
+          <div class="chat-head-meta">
+            <div class="chat-head-name">My Career Assistant</div>
+            <div class="chat-head-status">
+              <span class="live-dot"></span>Career Conversation
+            </div>
+          </div>
+          <button class="chat-x" onclick="Widget.toggle()">✕</button>
+        </div>
+
+        <div class="chat-tabs">
+          <button class="chat-tab on" onclick="Widget.setTab('chat', this)">
+            💬 Chat
+          </button>
+          <button class="chat-tab" onclick="Widget.setTab('resume', this)">
+            📄 Resume
+          </button>
+          <button class="chat-tab" onclick="Widget.setTab('fullapp', this)">
+            🔗 Full App
+          </button>
+        </div>
+
+        <!-- Chat tab -->
+        <div id="tab-chat">
+          <div class="chat-msgs" id="chatMsgs">
+            <div class="cm b">
+              <div class="cm-av">🤖</div>
+              <div class="cm-bub">
+                Hi! I'm Shuangyi's career assistant 👋 Ask me anything about her
+                skills, projects, or availability!
+              </div>
+            </div>
+          </div>
+          <div class="quick-qs" id="quickQs">
+            <button class="qq" onclick="Widget.quickSend(this)">
+              Tech stack?
+            </button>
+            <button class="qq" onclick="Widget.quickSend(this)">
+              Open to work?
+            </button>
+            <button class="qq" onclick="Widget.quickSend(this)">
+              Key projects?
+            </button>
+            <button class="qq" onclick="Widget.quickSend(this)">
+              GPA & school?
+            </button>
+          </div>
+          <div class="chat-inp-row">
+            <textarea
+              class="chat-inp"
+              id="chatInp"
+              rows="1"
+              placeholder="Ask about skills, experience..."
+              onkeydown="Widget.handleKey(event)"
+            ></textarea>
+            <button class="chat-send" onclick="Widget.send()">↑</button>
+          </div>
+        </div>
+
+        <!-- Resume tab -->
+        <div id="tab-resume" style="display: none">
+          <div class="resume-scroll">
+            <div class="r-block">
+              <div class="r-label">Education</div>
+              <div class="r-title">Northeastern University</div>
+              <div class="r-sub">
+                M.S. Computer Software Engineering · GPA 4.0
+              </div>
+            </div>
+            <div class="r-block" style="background: var(--sky)">
+              <div class="r-label">Project</div>
+              <div class="r-title">DrivePro</div>
+              <div class="r-sub">Distributed chauffeur management system</div>
+              <div class="r-tags">
+                <span class="r-tag">Spring Boot</span
+                ><span class="r-tag">Redis</span>
+                <span class="r-tag">RabbitMQ</span
+                ><span class="r-tag">Seata</span>
+              </div>
+            </div>
+            <div class="r-block" style="background: var(--sand)">
+              <div class="r-label">Project</div>
+              <div class="r-title">ShopEase</div>
+              <div class="r-sub">Full-stack e-commerce platform</div>
+              <div class="r-tags">
+                <span class="r-tag">MERN</span><span class="r-tag">Docker</span>
+                <span class="r-tag">AWS S3</span>
+              </div>
+            </div>
+            <div class="r-block" style="background: var(--sage)">
+              <div class="r-label">Project</div>
+              <div class="r-title">EmailPilot</div>
+              <div class="r-sub">AI Chrome extension · 40% efficiency gain</div>
+              <div class="r-tags">
+                <span class="r-tag">JavaScript</span
+                ><span class="r-tag">Gemini Nano</span>
+              </div>
+            </div>
+            <a href="images/resume.pdf" download class="r-cta"
+              >⬇ Download Full Resume</a
+            >
+          </div>
+        </div>
+
+        <!-- Full app tab -->
+        <div id="tab-fullapp" style="display: none">
+          <div class="fullapp-tab">
+            <span style="font-size: 2.2rem">🤗</span>
+            <p
+              style="
+                font-family: var(--font-display);
+                font-size: 1rem;
+                color: white;
+                font-weight: 700;
+              "
+            >
+              Career Conversation
+            </p>
+            <p>Full AI chatbot trained on Shuangyi's resume & LinkedIn.</p>
+            <a
+              class="fullapp-link"
+              href="https://huggingface.co/spaces/shuangyihu/career_conversation"
+              target="_blank"
+              >Open Full App ↗</a
+            >
+          </div>
+        </div>
+      </div>
+      <!-- /chat-panel -->
+    </div>
+    <!-- /twin-anchor -->
+
+    <!-- ── JS Modules (order matters) ── -->
+    <script src="js/pipeline.js"></script>
+    <script src="js/widget.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
