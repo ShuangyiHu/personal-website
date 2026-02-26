@@ -149,3 +149,21 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Backstory strip ── */
+.proj-story {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+  padding: 9px 16px;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.78rem;
+  color: var(--dark2);
+  line-height: 1.4;
+  border-top: 1px solid rgba(26, 25, 24, 0.08);
+}
