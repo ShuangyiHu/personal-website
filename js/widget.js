@@ -87,11 +87,13 @@ const Widget = (() => {
     const res = await fetch(`${API_BASE}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        message: userMessage,
-        history: [],
-      }),
+      body: JSON.stringify({ message: userMessage, history: [] }),
     });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || `Server error ${res.status}`);
+    }
 
     const data = await res.json();
     return data.reply;

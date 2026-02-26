@@ -74,20 +74,21 @@ def root():
 async def chat(req: ChatRequest):
     try:
         client = get_client()
-
+        print(f"[Chat] Calling HF with message: {req.message[:50]}")
+        
         result = client.predict(
             message=req.message,
             api_name="/chat"
         )
-
-        reply = str(result) if result is not None else "Sorry, no response."
-
+        
+        print(f"[Chat] Raw result type: {type(result)}, value: {result}")
+        reply = str(result) if result is not None else "No response."
         return ChatResponse(reply=reply, history=[])
 
     except Exception as e:
-        print(f"[Chat Error] {type(e).__name__}: {e}")
+        import traceback
+        print(f"[Chat ERROR]\n{traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=str(e))
-
 @app.get("/api/resume")
 def get_resume():
     """Return structured resume data for the widget."""
