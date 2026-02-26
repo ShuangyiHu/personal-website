@@ -72,24 +72,21 @@ def root():
 
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest):
-    """
-    Forward a message to the HuggingFace Career Conversation space.
-    The Gradio app should expose a /predict endpoint accepting (message, history).
-    Adjust fn_index based on your actual Gradio interface.
-    """
     try:
         client = get_client()
-        result = client.predict(
-            req.message,
-            req.history,
-            api_name="/chat"     # adjust to match your Gradio fn name
-        )
-        # result is typically (bot_response, updated_history)
-        reply, new_history = result
-        return ChatResponse(reply=reply, history=new_history)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
 
+        result = client.predict(
+            message=req.message,
+            api_name="/chat"
+        )
+
+        reply = str(result) if result is not None else "Sorry, no response."
+
+        return ChatResponse(reply=reply, history=[])
+
+    except Exception as e:
+        print(f"[Chat Error] {type(e).__name__}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/resume")
 def get_resume():
