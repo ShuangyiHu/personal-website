@@ -37,17 +37,18 @@ portfolio/
 
 ## 🎨 Frontend Tech Stack
 
-| Layer        | Technology        | Why                                                           |
-|--------------|-------------------|---------------------------------------------------------------|
-| Markup       | **HTML5**         | No build step needed; fast to deploy anywhere                 |
-| Styling      | **CSS3** (modular)| CSS custom properties, Grid, Flexbox, keyframe animations     |
-| Animation    | **Vanilla JS**    | SVG particle system + async/await pipeline sequence           |
-| Fonts        | **Google Fonts**  | Syne (display), Lora (body), JetBrains Mono, Space Mono      |
-| Hosting      | **GitHub Pages**  | Free, zero-config for static sites; just push to `gh-pages`  |
+| Layer     | Technology         | Why                                                         |
+| --------- | ------------------ | ----------------------------------------------------------- |
+| Markup    | **HTML5**          | No build step needed; fast to deploy anywhere               |
+| Styling   | **CSS3** (modular) | CSS custom properties, Grid, Flexbox, keyframe animations   |
+| Animation | **Vanilla JS**     | SVG particle system + async/await pipeline sequence         |
+| Fonts     | **Google Fonts**   | Syne (display), Lora (body), JetBrains Mono, Space Mono     |
+| Hosting   | **GitHub Pages**   | Free, zero-config for static sites; just push to `gh-pages` |
 
 **Why no framework?** This is a portfolio — no state management, no routing, no build pipeline needed. Vanilla JS loads instantly and impresses recruiters who look at source code.
 
 **If you later want to add a blog / CMS:**
+
 - Migrate to **Astro** (keeps the HTML/CSS, adds MDX blog support)
 - Or **Next.js** if you want React components
 
@@ -55,16 +56,18 @@ portfolio/
 
 ## ⚙️ Backend Tech Stack
 
-| Layer        | Technology          | Why                                                          |
-|--------------|---------------------|--------------------------------------------------------------|
-| Runtime      | **Python 3.11+**    | HuggingFace ecosystem is Python-first                        |
-| Framework    | **FastAPI**         | Async, auto-docs, Pydantic validation, 10× faster than Flask |
-| HF Bridge    | **gradio-client**   | Official client for calling your HF Gradio Space             |
-| ASGI server  | **uvicorn**         | Production-grade, used by FastAPI docs                       |
-| Deployment   | **Railway / Render**| Free tier, auto-deploys from GitHub, handles HTTPS           |
+| Layer       | Technology           | Why                                                          |
+| ----------- | -------------------- | ------------------------------------------------------------ |
+| Runtime     | **Python 3.11+**     | HuggingFace ecosystem is Python-first                        |
+| Framework   | **FastAPI**          | Async, auto-docs, Pydantic validation, 10× faster than Flask |
+| HF Bridge   | **gradio-client**    | Official client for calling your HF Gradio Space             |
+| ASGI server | **uvicorn**          | Production-grade, used by FastAPI docs                       |
+| Deployment  | **Railway / Render** | Free tier, auto-deploys from GitHub, handles HTTPS           |
 
 ### Why FastAPI over Node/Express?
+
 Your Career Conversation app is already Python on HuggingFace. Keeping the backend Python means:
+
 - Same `gradio-client` library you already know
 - Easy to share utilities / prompts between the HF space and the API
 - Native async support for concurrent chat requests
@@ -74,16 +77,18 @@ Your Career Conversation app is already Python on HuggingFace. Keeping the backe
 ## 🚀 Setup
 
 ### Frontend (static — no install needed)
+
 ```bash
 # Just open in browser:
 open index.html
 
 # Or serve locally with Python:
-python -m http.server 8080
+python3 -m http.server 8080
 # Then visit http://localhost:8080
 ```
 
 ### Add your photo
+
 1. Drop your square photo (e.g. `800×800px`) as `images/profile.jpg`
 2. In `index.html`, replace:
    ```html
@@ -91,13 +96,15 @@ python -m http.server 8080
    ```
    with:
    ```html
-   <img class="photo-img" src="images/profile.jpg" alt="Shuangyi Hu">
+   <img class="photo-img" src="images/profile.jpg" alt="Shuangyi Hu" />
    ```
 
 ### Add your resume
+
 Drop your PDF as `images/resume.pdf` — the download button is already wired up.
 
 ### Backend (optional — needed for live AI chat)
+
 ```bash
 cd backend
 cp .env.example .env
@@ -108,11 +115,12 @@ uvicorn main:app --reload --port 8000
 ```
 
 Then in `js/widget.js`, update the `getReply()` function to call:
+
 ```js
-const res  = await fetch('http://localhost:8000/api/chat', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ message: text, history: chatHistory })
+const res = await fetch("http://localhost:8000/api/chat", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ message: text, history: chatHistory }),
 });
 const data = await res.json();
 return data.reply;
@@ -123,6 +131,7 @@ return data.reply;
 ## 🌐 Deploy
 
 ### Frontend → GitHub Pages
+
 ```bash
 git init
 git add .
@@ -135,6 +144,7 @@ git push -u origin main
 ```
 
 ### Backend → Railway
+
 1. Push `backend/` to a GitHub repo
 2. Connect to [railway.app](https://railway.app) → New Project → Deploy from GitHub
 3. Set env vars: `HF_SPACE`, `HF_TOKEN`
@@ -156,4 +166,4 @@ git push -u origin main
 
 ---
 
-*Built with vanilla HTML/CSS/JS + FastAPI · No build step required*
+_Built with vanilla HTML/CSS/JS + FastAPI · No build step required_

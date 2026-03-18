@@ -344,54 +344,43 @@
           <h2 class="sec-title">Selected Projects</h2>
         </div>
         <div class="proj-grid">
-          <!-- Card 1: AI Research Agent -->
-          <div class="proj-card sr">
-            <div class="proj-card-arrow">↗</div>
-            <div class="proj-art">
-              <svg
-                viewBox="0 0 300 280"
-                preserveAspectRatio="xMidYMid slice"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect width="300" height="280" fill="#A8D8FF" />
-                <ellipse
-                  cx="260"
-                  cy="40"
-                  rx="110"
-                  ry="90"
-                  fill="#C8FF6A"
-                  transform="rotate(-15 260 40)"
-                />
-                <ellipse
-                  cx="30"
-                  cy="220"
-                  rx="100"
-                  ry="70"
-                  fill="rgba(255,255,255,0.65)"
-                  transform="rotate(20 30 220)"
-                />
-                <circle cx="55" cy="65" r="38" fill="#FF6EB4" opacity="0.85" />
-                <circle cx="200" cy="190" r="18" fill="white" opacity="0.5" />
-                <circle cx="240" cy="160" r="10" fill="white" opacity="0.35" />
-              </svg>
-              <img
-                class="proj-logo"
-                src="images/proj-1.png"
-                alt="AI Research Agent logo"
-              />
-              <div class="proj-story">
-                💚 Why spend hours searching when a team of agents can read,
-                evaluate, and disagree for you?
+          <!-- Card 1: SpeakFlow AI -->
+          <a class="proj-card sr" href="https://github.com/ShuangyiHu/speak-flow" target="_blank" rel="noopener">
+            <p class="proj-story">
+              "Because your ideas deserve to be heard — even when the words
+              don't come easy."
+            </p>
+            <div class="proj-card-bottom">
+              <div class="proj-info">
+                <img class="proj-logo" src="images/proj-1.png" alt="SpeakFlow AI logo" />
+                <div>
+                  <h3 class="proj-name">SpeakFlow AI</h3>
+                  <p class="proj-type">AI · Debate Coach · Real-Time</p>
+                </div>
+              </div>
+              <div class="proj-stack">
+                <span class="proj-tag">Python</span>
+                <span class="proj-tag">CrewAI</span>
+                <span class="proj-tag">LangGraph</span>
+                <span class="proj-tag">Claude API</span>
               </div>
             </div>
-            <div class="proj-body">
-              <p class="proj-type">AI · Multi-Agent Pipeline</p>
-              <h3 class="proj-name">AI Research Agent</h3>
-              <p class="proj-desc">
-                Multi-agent pipeline with parallel retrieval, dual-model
-                evaluation (Claude + Gemini), and a best-version guard —
-                iteratively refines until quality threshold is reached.
-              </p>
+          </a>
+
+          <!-- Card 2: DeepResearch AI Agent -->
+          <a class="proj-card sr" href="https://github.com/ShuangyiHu/deep-research-v2" target="_blank" rel="noopener">
+            <p class="proj-story">
+              "Why spend hours searching when a team of agents can read,
+              evaluate, and disagree for you?"
+            </p>
+            <div class="proj-card-bottom">
+              <div class="proj-info">
+                <img class="proj-logo" src="images/proj-2.png" alt="AI Research Agent logo" />
+                <div>
+                  <h3 class="proj-name">AI Research Agent</h3>
+                  <p class="proj-type">AI · Multi-Agent Pipeline</p>
+                </div>
+              </div>
               <div class="proj-stack">
                 <span class="proj-tag">Python</span>
                 <span class="proj-tag">Claude API</span>
@@ -399,167 +388,22 @@
                 <span class="proj-tag">OpenAI SDK</span>
               </div>
             </div>
-          </div>
+          </a>
 
-          <!-- Card 2: WanderMark -->
-          <div class="proj-card sr">
-            <div class="proj-card-arrow">↗</div>
-            <div class="proj-art">
-              <svg
-                viewBox="0 0 300 280"
-                preserveAspectRatio="xMidYMid slice"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect width="300" height="280" fill="#FFE566" />
-                <circle cx="60" cy="55" r="90" fill="#FF7A5A" opacity="0.88" />
-                <path
-                  d="M0,165 Q75,125 150,155 Q225,185 300,145 L300,280 L0,280 Z"
-                  fill="white"
-                  opacity="0.55"
-                />
-                <path
-                  d="M0,190 Q75,170 150,180 Q225,190 300,170 L300,280 L0,280 Z"
-                  fill="white"
-                  opacity="0.3"
-                />
-                <ellipse
-                  cx="278"
-                  cy="62"
-                  rx="68"
-                  ry="52"
-                  fill="#6EC6FF"
-                  transform="rotate(10 278 62)"
-                  opacity="0.8"
-                />
-              </svg>
-              <img
-                class="proj-logo"
-                src="images/proj-2.png"
-                alt="WanderMark logo"
-              />
-              <div class="proj-story">
-                💚 For people who believe the best places are meant to be
-                shared.
+          <!-- Card 3: DrivePro -->
+          <a class="proj-card sr" href="https://github.com/ShuangyiHu/DrivePro" target="_blank" rel="noopener">
+            <p class="proj-story">
+              "Because a missed booking or double-charge shouldn't be anyone's
+              problem."
+            </p>
+            <div class="proj-card-bottom">
+              <div class="proj-info">
+                <img class="proj-logo" src="images/proj-3.png" alt="DrivePro logo" />
+                <div>
+                  <h3 class="proj-name">DrivePro</h3>
+                  <p class="proj-type">Distributed Systems · Backend</p>
+                </div>
               </div>
-            </div>
-            <div class="proj-body">
-              <p class="proj-type">Full-Stack · MERN</p>
-              <h3 class="proj-name">WanderMark</h3>
-              <p class="proj-desc">
-                Place bookmarking platform with JWT auth & Cloudinary uploads.
-                Reduced API response time by 87% and P95 latency by 30% via
-                async uploads and indexed queries.
-              </p>
-              <div class="proj-stack">
-                <span class="proj-tag">React</span>
-                <span class="proj-tag">Node.js</span>
-                <span class="proj-tag">MongoDB</span>
-                <span class="proj-tag">Cloudinary</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3: MailMind -->
-          <div class="proj-card sr">
-            <div class="proj-card-arrow">↗</div>
-            <div class="proj-art">
-              <svg
-                viewBox="0 0 300 280"
-                preserveAspectRatio="xMidYMid slice"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect width="300" height="280" fill="#C4B5FD" />
-                <ellipse
-                  cx="250"
-                  cy="250"
-                  rx="130"
-                  ry="110"
-                  fill="#AAFF6A"
-                  transform="rotate(-20 250 250)"
-                  opacity="0.9"
-                />
-                <circle cx="70" cy="55" r="75" fill="#FF9F3F" opacity="0.82" />
-                <circle cx="272" cy="32" r="45" fill="#FF6EB4" opacity="0.65" />
-              </svg>
-              <img
-                class="proj-logo"
-                src="images/proj-3.png"
-                alt="MailMind logo"
-              />
-              <div class="proj-story">
-                💚 Your inbox shouldn't need a second job to manage.
-              </div>
-            </div>
-            <div class="proj-body">
-              <p class="proj-type">AI · Chrome Extension · Hackathon</p>
-              <h3 class="proj-name">MailMind</h3>
-              <p class="proj-desc">
-                Led team of 4 to build an AI Chrome extension for intelligent
-                email classification & summarization. −60% redundant API calls,
-                UI responsiveness 1.2s → 400ms.
-              </p>
-              <div class="proj-stack">
-                <span class="proj-tag">React</span>
-                <span class="proj-tag">TypeScript</span>
-                <span class="proj-tag">Gemini AI</span>
-                <span class="proj-tag">Chrome APIs</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 4: DrivePro -->
-          <div class="proj-card sr">
-            <div class="proj-card-arrow">↗</div>
-            <div class="proj-art">
-              <svg
-                viewBox="0 0 300 280"
-                preserveAspectRatio="xMidYMid slice"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect width="300" height="280" fill="#6EEFC0" />
-                <ellipse
-                  cx="150"
-                  cy="0"
-                  rx="165"
-                  ry="115"
-                  fill="#FF5F57"
-                  opacity="0.88"
-                />
-                <circle cx="272" cy="228" r="88" fill="#FFE033" opacity="0.9" />
-                <path
-                  d="M0,200 Q150,170 300,200 L300,280 L0,280 Z"
-                  fill="white"
-                  opacity="0.4"
-                />
-                <line
-                  x1="150"
-                  y1="182"
-                  x2="150"
-                  y2="280"
-                  stroke="white"
-                  stroke-width="3"
-                  stroke-dasharray="10,8"
-                  opacity="0.65"
-                />
-              </svg>
-              <img
-                class="proj-logo"
-                src="images/proj-4.png"
-                alt="DrivePro logo"
-              />
-              <div class="proj-story">
-                💚 Because a missed booking or double-charge shouldn't be
-                anyone's problem.
-              </div>
-            </div>
-            <div class="proj-body">
-              <p class="proj-type">Distributed Systems · Backend</p>
-              <h3 class="proj-name">DrivePro</h3>
-              <p class="proj-desc">
-                Microservices chauffeur platform with real-time booking, Redis
-                caching, and Seata distributed transaction consistency. 1,000+
-                req/sec, Dockerized on AWS EC2.
-              </p>
               <div class="proj-stack">
                 <span class="proj-tag">Spring Boot</span>
                 <span class="proj-tag">Redis</span>
@@ -567,7 +411,51 @@
                 <span class="proj-tag">AWS EC2</span>
               </div>
             </div>
-          </div>
+          </a>
+
+          <!-- Card 4: MailMind -->
+          <a class="proj-card sr" href="https://github.com/ShuangyiHu/MailMind" target="_blank" rel="noopener">
+            <p class="proj-story">
+              "Your inbox shouldn't need a second job to manage."
+            </p>
+            <div class="proj-card-bottom">
+              <div class="proj-info">
+                <img class="proj-logo" src="images/proj-4.png" alt="MailMind logo" />
+                <div>
+                  <h3 class="proj-name">MailMind</h3>
+                  <p class="proj-type">AI · Chrome Extension · Hackathon</p>
+                </div>
+              </div>
+              <div class="proj-stack">
+                <span class="proj-tag">React</span>
+                <span class="proj-tag">TypeScript</span>
+                <span class="proj-tag">Gemini AI</span>
+                <span class="proj-tag">Chrome APIs</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 5: WanderMark -->
+          <a class="proj-card sr" href="https://wander-mark-git-main-amandashuangyihu-9253s-projects.vercel.app" target="_blank" rel="noopener">
+            <p class="proj-story">
+              "For people who believe the best places are meant to be shared."
+            </p>
+            <div class="proj-card-bottom">
+              <div class="proj-info">
+                <img class="proj-logo" src="images/proj-5.png" alt="WanderMark logo" />
+                <div>
+                  <h3 class="proj-name">WanderMark</h3>
+                  <p class="proj-type">Full-Stack · MERN</p>
+                </div>
+              </div>
+              <div class="proj-stack">
+                <span class="proj-tag">React</span>
+                <span class="proj-tag">Node.js</span>
+                <span class="proj-tag">MongoDB</span>
+                <span class="proj-tag">Cloudinary</span>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </section>
